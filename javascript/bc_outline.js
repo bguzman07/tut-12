@@ -6,7 +6,7 @@
    Tutorial Case
 
    Author: Brandy Guzman
-   Date:   
+   Date:   3/4/2025
 
    Filename: bc_outline.js
 
@@ -65,8 +65,21 @@ function createList(source, outlineList) {
       var headLevel = headings.indexOf(n.nodeName);
 
       if (headLevel !== -1) {
+         // Add an id to the heading if it is missing
+         headNum++;
+         if (n.hasAttribute("id") === false) {
+            n.setAttribute("id", "head" + headNum);
+         }
+
          var listElem = document.createElement("li");
-         listElem.innerHTML = n.firstChild.nodeValue;
+
+         // Create hypertext links to the document headings
+         var linkElem = document.createElement("a");
+         linkElem.innerHTML = n.innerHTML;
+         linkElem.setAttribute("href", "#" + n.id);
+
+         // Append the hypertext links to the document headings
+         listElem.appendChild(linkElem);
 
          if (headLevel === prevLevel) {
             // Append the list item to the current list
